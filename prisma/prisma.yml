@@ -1,0 +1,4 @@
+#endpoint: ${env:PRISMA_ENDPOINT}
+endpoint: https://ct-gql-70bb0131ce.herokuapp.com/ct-gql-app/prod
+datamodel: datamodel.graphql
+secret: thisismysecretary

@@ -1,0 +1,106 @@
+type Query {
+    hello(name: String, age: Int): String!
+    add(arr: [Int]): Int!
+    users: [User!]!
+    posts(status: Boolean): [Post!]!
+    comments(first: Int, skip: Int, after: String, orderBy: CommentOrderByInput): [Comment!]!
+}
+
+type Mutation {
+    createUser(data: NewUserInput!): User!
+    deleteUser(id: ID!): User!
+    login(data: UserLoginInput): UserLoginSuccess!
+    createPost(title: String!, content: String!, author: ID!): Post!
+    updatePost(data: UpdatePostInput!): Post!
+    deletePost(id: ID!): Post!
+    createComment(content: String!, author: ID!, post: ID!): Comment!
+}
+
+type Subscription {
+    count: Int!
+    comment(postId: ID!): CommentSubcriptionPayload!
+    post: PostSubcriptionPayload!
+    myPosts: PostSubcriptionPayload!
+}
+
+input NewUserInput {
+    name: String!
+    email: String!
+    password: String!
+}
+
+input UserLoginInput {
+    email: String!
+    password: String!
+}
+
+input UpdatePostInput {
+    id: ID!,
+    title: String,
+    content: String,
+    status: Boolean,
+    author: ID!
+}
+
+type User {
+    id: ID,
+    name: String!
+    password: String!
+    email: String
+    posts: [Post!]!
+    comments(first: Int, skip: Int, after: String): [Comment!]!
+    createdAt: String!
+    updatedAt: String!
+}
+
+type UserLoginSuccess {
+    name: String!
+    token: String!
+}
+
+type Post {
+    id: ID!
+    title: String!
+    content: String!
+    status: Boolean!
+    author: User!
+    comments: [Comment!]!
+    createdAt: String!
+    updatedAt: String!
+}
+
+type Comment {
+    id: ID!
+    content: String!
+    author: User!
+    post: Post!
+    createdAt: String!
+    updatedAt: String!
+}
+
+type CommentSubcriptionPayload {
+    mutation: MutationType!
+    node: Comment!
+}
+
+type PostSubcriptionPayload {
+    mutation: MutationType!
+    node: Post!
+}
+
+enum MutationType {
+    CREATED
+    UPDATED
+    DELETED
+}
+
+enum CommentOrderByInput {
+    id_ASC
+    id_DESC
+    content_ASC
+    content_DESC
+    createdAt_ASC
+    createdAt_DESC
+    updatedAt_ASC
+    updatedAt_DESC
+}
