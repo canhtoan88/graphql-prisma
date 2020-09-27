@@ -19,7 +19,8 @@
     "start": "env-cmd -f ./config/prod.env node dist/index.js",
     "heroku-postbuild": "babel src --out-dir dist --copy-files",
     "dev": "env-cmd -f ./config/dev.env nodemon src/index.js --ext js,graphql --exec babel-node",
-    "get-schema": "graphql get-schema -p prisma"
+    "get-schema": "graphql get-schema -p prisma --dotenv config/dev.env",
+    "prisma-deploy": "cd prisma && prisma deploy -e ../config/dev.env"
   },
   "author": "",
   "license": "ISC"

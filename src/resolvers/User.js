@@ -18,7 +18,7 @@ const User = {
         resolve(parent, arg, { req }, info) {
             const token = req.request.headers.authorization;
             try {
-                const decode = jwt.verify(token, 'mysecret');
+                const decode = jwt.verify(token, process.env.SECRET_SECRET);
                 if (!decode || !decode.id) {
                     throw Error('Token is invalid');
                 }

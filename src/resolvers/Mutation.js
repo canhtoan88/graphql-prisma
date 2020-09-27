@@ -29,10 +29,10 @@ const Mutation = {
         if (!matched) {
             throw Error('Email or Password not matched');
         }
-        console.log(jwt.sign({ id: user.id }, 'mysecret'));
+        console.log(jwt.sign({ id: user.id }, process.env.SECRET_SECRET));
         return {
             name: user.name,
-            token: jwt.sign({ id: user.id }, 'mysecret')
+            token: jwt.sign({ id: user.id }, process.env.SECRET_SECRET)
         }
     },
     createPost(parent, arg, { prisma, pubsub }, info) {

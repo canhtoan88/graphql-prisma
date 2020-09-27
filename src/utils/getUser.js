@@ -5,7 +5,7 @@ module.exports = req => {
         throw 'Token invalid';
     }
     try {
-        const decode = jwt.verify(token.replace('Bearer ', ''), 'mysecret');
+        const decode = jwt.verify(token.replace('Bearer ', ''), process.env.SECRET_SECRET);
         if (!decode || !decode.id) {
             throw 'Token invalid';
         }
